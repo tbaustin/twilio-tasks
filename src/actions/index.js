@@ -34,6 +34,14 @@ const postRequest = (path, params, actionType) => {
 };
 
 export default {
+  register: credentials => {
+    return dispatch => {
+      return dispatch(
+        postRequest('/api/profile', credentials, constants.PROFILE_CREATED),
+      );
+    };
+  },
+
   fetchTasks: params => {
     return dispatch => {
       return dispatch(
