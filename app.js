@@ -34,14 +34,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(
-  sessions({
+app.use(sessions({
     cookieName: 'session',
     secret: process.env.SESSION_SECRET,
     duration: 24 * 60 * 60 * 1000,
     activeDuration: 30 * 60 * 1000,
-  }),
-);
+  }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
