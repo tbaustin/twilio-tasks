@@ -11,9 +11,11 @@ const getRequest = (path, params, actionType) => {
           payload: payload,
           params: params,
         });
+
+        return payload;
       })
       .catch(err => {
-        console.log(err);
+        throw err;
       });
 };
 
@@ -21,15 +23,17 @@ const postRequest = (path, params, actionType) => {
   return dispatch =>
     APIManager.post(path, params)
       .then(response => {
-        const payload = response.results || response.result;
+        const payload = response.results || response.result || response.user;
         dispatch({
           type: actionType,
           payload: payload,
           params: params,
         });
+
+        return payload;
       })
       .catch(err => {
-        console.log(err);
+        throw err;
       });
 };
 
@@ -37,7 +41,19 @@ export default {
   register: credentials => {
     return dispatch => {
       return dispatch(
-        postRequest('/api/profile', credentials, constants.PROFILE_CREATED),
+        postRequest(
+          '/account/register',
+          credentials,
+          constants.PROFILE_CREATED,
+        ),
+      );
+    };
+  },
+
+  login: credentials => {
+    return dispatch => {
+      return dispatch(
+        postRequest('/account/login', credentials, constants.USER_LOGIN),
       );
     };
   },

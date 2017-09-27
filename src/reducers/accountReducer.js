@@ -13,6 +13,11 @@ export default (state = initialState, action) => {
 
       return updated;
 
+    case constants.USER_LOGIN:
+      console.log('USER_LOGIN: ' + JSON.stringify(action.payload));
+
+      return updated;
+
     default:
       return state;
   }
